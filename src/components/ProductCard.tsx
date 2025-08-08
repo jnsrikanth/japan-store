@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
@@ -18,7 +17,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
       <div className="relative h-48">
-        <Image src={product.image} alt={product.name} fill className="object-cover" unoptimized />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" decoding="async"/>
         {product.originalPrice && (
           <div className="absolute top-2 right-2 bg-sakura-600 text-white px-2 py-1 rounded text-xs font-semibold">
             Save ¥{product.originalPrice - product.price}

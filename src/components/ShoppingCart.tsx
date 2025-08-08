@@ -2,7 +2,6 @@
 
 import { useCart } from '@/context/CartContext';
 import { XMarkIcon, MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 import QRCode from 'qrcode';
 import { useMemo, useState } from 'react';
 import { useSWRConfig } from 'swr';
@@ -91,7 +90,8 @@ const ShoppingCart = () => {
                 {state.items.map((item) => (
                   <div key={item.id} className="flex gap-3 p-3 border border-gray-200 rounded-lg">
                     <div className="relative w-16 h-16 flex-shrink-0">
-                      <Image src={item.image} alt={item.name} fill className="object-cover rounded" unoptimized />
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" loading="lazy" decoding="async"/>
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-gray-900 truncate">{item.name}</h3>
