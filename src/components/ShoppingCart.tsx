@@ -91,7 +91,7 @@ const ShoppingCart = () => {
                 {state.items.map((item) => (
                   <div key={item.id} className="flex gap-3 p-3 border border-gray-200 rounded-lg">
                     <div className="relative w-16 h-16 flex-shrink-0">
-                      <Image src={item.image} alt={item.name} fill className="object-cover rounded" />
+                      <Image src={item.image} alt={item.name} fill className="object-cover rounded" unoptimized />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-gray-900 truncate">{item.name}</h3>
