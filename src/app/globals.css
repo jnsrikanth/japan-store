@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827; /* gray-900 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-noto-sans);
+  --font-mono: var(--font-noto-serif);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b1220; /* indigoAizome-ish */
+    --foreground: #f9fafb;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.kawaii-bg {
+  background-image: radial-gradient(circle at 10% 10%, #ffe4ec 0%, transparent 40%),
+    radial-gradient(circle at 90% 20%, #fecdd6 0%, transparent 35%),
+    radial-gradient(circle at 20% 80%, #fde68a 0%, transparent 35%);
+}
+
