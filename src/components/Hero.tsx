@@ -21,8 +21,9 @@ const Hero = () => {
           </div>
           <div className="relative">
             <div className="absolute -top-8 -right-8 w-32 h-32 bg-sakura-200 rounded-full blur-2xl opacity-60 animate-float" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://images.unsplash.com/photo-1608983885392-8e1a25b92203?q=80&w=1200&auto=format&fit=crop"
+src="/images/hero.svg"
               alt="Japanese gifts"
               className="rounded-xl shadow-lg"
             />
