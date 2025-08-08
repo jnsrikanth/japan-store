@@ -5,10 +5,10 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-              Kawaii meets Craft — 日本から直送
+              Japanese Finds, Delivered in India
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Curated gadgets, toys, snacks, and gifts directly from Japan. Modern design with a traditional soul.
+              Curated gadgets, toys, snacks, and gifts sourced from Japan — shipped across India.
             </p>
             <div className="flex gap-3">
               <a href="#products" className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-sakura-600 text-white font-semibold shadow-md hover:bg-sakura-700 transition-colors">

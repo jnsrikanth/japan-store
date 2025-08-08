@@ -11,7 +11,7 @@ const Logo = ({ size = 64 }: { size?: number }) => {
       </div>
       <div>
         <p className="text-xl font-extrabold tracking-wide">Nippon Finds</p>
-        <p className="text-xs text-gray-500 -mt-1">日本の良いもの</p>
+        <p className="text-xs text-gray-500 -mt-1">Curated from Japan</p>
       </div>
     </div>
   );
