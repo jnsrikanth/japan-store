@@ -1,4 +1,6 @@
-import { useSWR } from 'swr';
+'use client';
+
+import useSWR from 'swr';
 import ProductCard from '@/components/ProductCard';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
