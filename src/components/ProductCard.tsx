@@ -1,3 +1,5 @@
+'use client';
+
 import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
@@ -20,8 +22,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/images/placeholder.svg'; }} />
         {product.originalPrice && (
-          <div className="absolute top-2 right-2 bg-sakura-600 text-white px-2 py-1 rounded text-xs font-semibold">
-            Save ¥{product.originalPrice - product.price}
+          <div className="absolute top-2 right-2 text-white px-2 py-1 rounded text-xs font-semibold"
+               style={{ backgroundColor: 'var(--color-sakura-600)' }}>
+            Save ₹{product.originalPrice - product.price}
           </div>
         )}
       </div>
@@ -38,8 +41,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={handleAdd}
           disabled={!available}
           className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
-            available ? 'bg-sakura-600 hover:bg-sakura-700 text-white shadow' : 'bg-gray-200 text-gray-500'
+            available ? 'text-white shadow' : 'bg-gray-200 text-gray-500'
           }`}
+          style={available ? { backgroundColor: 'var(--color-sakura-600)' } : undefined}
+          onMouseEnter={(e) => {
+            if (available) (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'var(--color-sakura-700)';
+          }}
+          onMouseLeave={(e) => {
+            if (available) (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'var(--color-sakura-600)';
+          }}
         >
           {available ? 'Add to Cart' : 'Out of Stock'}
         </button>

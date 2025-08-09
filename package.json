@@ -6,31 +6,43 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync:images": "ts-node --transpile-only scripts/sync_images.ts",
+    "crawl:takaski": "ts-node --transpile-only scripts/crawl_takaski.ts --start https://www.takaski.com/ --max 500 --rate 1000 --perCat 20",
+    "build:catalog": "ts-node --transpile-only scripts/build_catalog_from_urls.ts product_urls.txt src/data/catalog.source.json",
+    "build:takaski": "ts-node --transpile-only scripts/parse_takaski_home_craft.ts"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.7.5",
     "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.13.0",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-toast": "^1.2.14",
     "clsx": "^2.1.1",
     "lucide-react": "^0.539.0",
     "next": "15.4.6",
+    "next-auth": "^4.24.7",
+    "nodemailer": "^6.9.14",
+    "qrcode": "^1.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "swr": "^2.3.4",
-    "qrcode": "^1.5.4"
+    "swr": "^2.3.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/qrcode": "^1.5.5",
+    "cheerio": "^1.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "got": "^13.0.0",
+    "p-limit": "^4.0.0",
+    "prisma": "^6.13.0",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
-

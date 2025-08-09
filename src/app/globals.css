@@ -10,6 +10,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans);
   --font-mono: var(--font-noto-serif);
+
+  /* Custom sakura palette used across buttons and accents */
+  --color-sakura-200: #fecdd3; /* light pink */
+  --color-sakura-600: #e11d48; /* rose-600 like */
+  --color-sakura-700: #be123c; /* rose-700 like */
 }
 
 @media (prefers-color-scheme: dark) {

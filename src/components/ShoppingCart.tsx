@@ -11,6 +11,7 @@ const ShoppingCart = () => {
   const { mutate } = useSWRConfig();
   const [upiQr, setUpiQr] = useState<string | null>(null);
   const [upiUri, setUpiUri] = useState<string | null>(null);
+  const [upiIdOverride, setUpiIdOverride] = useState<string>('');
   const upiId = process.env.NEXT_PUBLIC_UPI_ID || '';
   const upiName = process.env.NEXT_PUBLIC_UPI_NAME || 'Nippon Finds';
 
@@ -20,11 +21,16 @@ const ShoppingCart = () => {
 
   const handleUPICheckout = async () => {
     try {
-      if (!upiId) {
-        alert('UPI payment is not configured. Please set NEXT_PUBLIC_UPI_ID in .env.local');
+      if (state.items.length === 0) {
+        alert('Your cart is empty. Please add items before paying.');
         return;
       }
-      const params = new URLSearchParams({ pa: upiId, pn: upiName, am: String(roundedTotal), cu: 'INR', tn: 'Nippon Finds Order' });
+      const effectiveUpiId = (upiId || upiIdOverride).trim();
+      if (!effectiveUpiId) {
+        alert('UPI payment is not configured. Please set NEXT_PUBLIC_UPI_ID in Vercel or enter a UPI ID below.');
+        return;
+      }
+      const params = new URLSearchParams({ pa: effectiveUpiId, pn: upiName, am: String(roundedTotal), cu: 'INR', tn: 'Nippon Finds Order' });
       const uri = `upi://pay?${params.toString()}`;
       setUpiUri(uri);
 
@@ -52,7 +58,7 @@ const ShoppingCart = () => {
 
       const dataUrl = await QRCode.toDataURL(uri, { width: 256, margin: 1 });
       setUpiQr(dataUrl);
-      clearCart();
+      // Do not auto-clear cart to avoid user confusion; user can clear manually after payment.
 
       if (typeof window !== 'undefined') {
         const url = new URL('/success', window.location.origin);
@@ -116,10 +122,26 @@ const ShoppingCart = () => {
           {state.items.length > 0 && (
             <div className="border-t border-gray-200 p-4 space-y-4">
               <button onClick={clearCart} className="w-full text-center text-sm text-red-600 hover:text-red-700">Clear Cart</button>
-              <div className="flex justify-between items-center text-lg font-semibold"><span>Total:</span><span>¥{totalPrice}</span></div>
+              <div className="flex justify-between items-center text-lg font-semibold"><span>Total:</span><span>₹{totalPrice}</span></div>
               <p className="text-sm text-gray-500 text-center">Worldwide shipping available • Delivery estimates at checkout</p>
               <div className="space-y-3">
-                <button onClick={handleUPICheckout} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-lg">Pay via UPI (Scan QR / Open UPI App)</button>
+                {!upiId && (
+                  <div className="border border-yellow-200 rounded-lg p-3 bg-yellow-50">
+                    <p className="text-sm text-yellow-800 mb-2">UPI ID is not configured for this deployment. Enter a UPI ID to proceed:</p>
+                    <div className="flex gap-2">
+                      <input
+                        value={upiIdOverride}
+                        onChange={(e) => setUpiIdOverride(e.target.value)}
+                        className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                        placeholder="e.g., 7013175234-2@ybl"
+                      />
+                      <button onClick={handleUPICheckout} className="bg-green-600 hover:bg-green-700 text-white font-semibold px-3 py-2 rounded">Pay via UPI</button>
+                    </div>
+                  </div>
+                )}
+                {upiId && (
+                  <button onClick={handleUPICheckout} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors shadow-lg">Pay via UPI (Scan QR / Open UPI App)</button>
+                )}
                 {upiQr && (
                   <div className="border border-green-200 rounded-lg p-3 text-center animate-fade-in">
                     <p className="text-sm text-gray-700 mb-2">Scan this QR with any UPI app</p>

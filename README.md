@@ -15,7 +15,11 @@ A modern, kawaii-inspired Japanese e-commerce storefront built with Next.js 15, 
 2. Configure env (optional for UPI):
    cp .env.example .env.local
    # edit values
-3. Run
+3. (Optional) Import real product images and catalog from approved sources
+   - Edit src/data/catalog.source.json and paste product details with remoteImageUrl from Takaski (or other approved sources).
+   - Run: npm run sync:images
+   - This downloads images into public/products/ and writes src/data/products.json.
+4. Run
    npm run dev
 
 ## Environment variables

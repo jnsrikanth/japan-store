@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="giftsGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fecdd3"/>
+      <stop offset="100%" stop-color="#fda4af"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#giftsGrad)"/>
+  <g transform="translate(200,160)">
+    <rect x="0" y="80" width="400" height="220" rx="20" fill="#fff" stroke="#fb7185" stroke-width="8"/>
+    <rect x="0" y="40" width="400" height="80" rx="16" fill="#fff1f2" stroke="#fb7185" stroke-width="8"/>
+    <rect x="180" y="40" width="40" height="260" fill="#fb7185"/>
+    <path d="M200 40c40-80 120-40 80 20 M200 40c-40-80-120-40-80 20" fill="none" stroke="#fb7185" stroke-width="8"/>
+  </g>
+  <text x="400" y="540" text-anchor="middle" font-family="sans-serif" font-size="36" fill="#9f1239">Gifts</text>
+</svg>
+

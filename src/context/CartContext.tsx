@@ -29,9 +29,10 @@ export type CartAction =
   | { type: 'CLEAR_CART' }
   | { type: 'TOGGLE_CART' }
   | { type: 'OPEN_CART' }
-  | { type: 'CLOSE_CART' };
+  | { type: 'CLOSE_CART' }
+  | { type: 'HYDRATE'; payload: { items: CartItem[] } };
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
@@ -67,6 +68,8 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return { ...state, isOpen: true };
     case 'CLOSE_CART':
       return { ...state, isOpen: false };
+    case 'HYDRATE':
+      return { ...state, items: action.payload.items };
     default:
       return state;
   }
@@ -89,6 +92,29 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [], isOpen: false });
+
+  // Hydrate from localStorage on mount
+  useEffect(() => {
+    try {
+      const raw = typeof window !== 'undefined' ? window.localStorage.getItem('cart.items') : null;
+      if (raw) {
+        const parsed = JSON.parse(raw) as CartItem[];
+        if (Array.isArray(parsed)) {
+          dispatch({ type: 'HYDRATE', payload: { items: parsed } });
+        }
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Persist to localStorage whenever items change
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('cart.items', JSON.stringify(state.items));
+      }
+    } catch {}
+  }, [state.items]);
 
   const addItem = (p: Product) => dispatch({ type: 'ADD_ITEM', payload: p });
   const removeItem = (id: string) => dispatch({ type: 'REMOVE_ITEM', payload: id });
