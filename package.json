@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "sync:images": "ts-node --transpile-only scripts/sync_images.ts",
     "crawl:takaski": "ts-node --transpile-only scripts/crawl_takaski.ts --start https://www.takaski.com/ --max 500 --rate 1000 --perCat 20",
     "build:catalog": "ts-node --transpile-only scripts/build_catalog_from_urls.ts product_urls.txt src/data/catalog.source.json",
